@@ -1,4 +1,4 @@
-
+package views;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -226,7 +226,7 @@ public class Cadastro_paciente extends javax.swing.JFrame {
         paciente.setSexo((String)txtSexo.getSelectedItem());
 
         registro.inserir(paciente);
-
+        dispose();
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

@@ -11,9 +11,28 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
-public class usuario {
+public class Usuario {
+	
+	private String loginUsuario;
+	private String senhaUsuario;
 
-  public static boolean checkLogin(String login, String senha) {
+	public String getLoginUsuario() {
+		return loginUsuario;
+	}
+
+	public void setLoginUsuario(String loginUsuario) {
+		this.loginUsuario = loginUsuario;
+	}
+
+	public String getSenhaUsuario() {
+		return senhaUsuario;
+	}
+
+	public void setSenhaUsuario(String senhaUsuario) {
+		this.senhaUsuario = senhaUsuario;
+	}
+
+public static boolean checkLogin(String login, String senha) {
     login = login.replaceAll(" ", "");
     senha = senha.replaceAll(" ", "");
     if(login.length() > 32 || login.length() <= 0){
@@ -45,7 +64,7 @@ public class usuario {
         }
        }
       } catch (SQLException ex) {
-        Logger.getLogger(usuario.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
        } finally {
         database.closeConnection(con, stmt, rs);
        }
@@ -55,26 +74,26 @@ public class usuario {
     return false;
   }
 
-  public static void registroUsuario(String login, String senha1, String senha2) {
+  public static void registroUsuario(UsuarioModel usuario) {
     Connection con = database.getConnection();
     PreparedStatement stmt = null;
-      if(login.indexOf(" ") == -1 && senha1.indexOf(" ") == -1 && senha2.indexOf(" ") == -1){
+   /*   if(login.indexOf(" ") == -1 && senha1.indexOf(" ") == -1 && senha2.indexOf(" ") == -1){
           if(senha1 == senha2) {
+          */
             try{
               stmt = con.prepareStatement("INSERT INTO usuario(login, senha, permission) VALUES (?,?,?)");
-              stmt.setString(1, login);
-              stmt.setString(2, senha1);
-              stmt.setInt(3, 0);
+              stmt.setString(1, usuario.getLoginUsuario());
+              stmt.setString(2, usuario.getCpf());
+              stmt.setInt(3, usuario.getPermissao());
               stmt.executeUpdate();
               JOptionPane.showMessageDialog(null, "Usuario criado com sucesso!");
             } catch (SQLException ex) {
-                Logger.getLogger(usuario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
                } finally {
                 database.closeConnection(con, stmt);
                }
-          }else {
+         /* }else {
             JOptionPane.showMessageDialog(null, "Senha incopativeis!");
-          }
+          } */
     }
   }
-}

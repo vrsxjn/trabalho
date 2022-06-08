@@ -1,4 +1,11 @@
+package views;
+
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
+import trabalho.PacienteModel;
+import trabalho.RegistroDAO;
 
 public class Consulta extends javax.swing.JFrame {
 
@@ -47,7 +54,11 @@ public class Consulta extends javax.swing.JFrame {
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarActionPerformed(evt);
+                try {
+					btnConsultarActionPerformed(evt);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
             }
         });
 
@@ -107,12 +118,14 @@ public class Consulta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
-        Paciente paciente = new Paciente(); 
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnConsultarActionPerformed
+        PacienteModel paciente = new PacienteModel(); 
         paciente.setNome(txtNome.getText());
         paciente.setCpf(txtCPF.getText());
         
-        JOptionPane.showMessageDialog(null, paciente.salvar());
+        RegistroDAO registro = new RegistroDAO();
+        registro.inserir(paciente);
+        //JOptionPane.showMessageDialog(null, paciente.salvar()); ver erro
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**
