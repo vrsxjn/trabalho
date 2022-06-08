@@ -143,12 +143,8 @@ public class Historico_paciente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        Paciente paciente = new Paciente();
         
-        paciente.setNome(txtNome.getText());
-        paciente.setCpf(txtCpf.getText());
     //    paciente.setData(txtData.getData());  TRATAR ERRO #1
-        paciente.setTipoExame(txtExame.getText());
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**

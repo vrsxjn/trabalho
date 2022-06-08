@@ -10,10 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class database {
-  private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-  private static final String URL = "jdbc:mysql://localhost:3306/trabalho";
+  private static final String DRIVER = "com.mysql.jdbc.Driver";
+  private static final String URL = "jdbc:mysql://localhost:3306/discord";
   private static final String USER = "root";
-  private static final String PASS = "Casa2523";
+  private static final String PASS = "virusfofo";
   public static final String BLUE = "\u001B[34m";
   public static final String RED = "\u001B[31m";
 
