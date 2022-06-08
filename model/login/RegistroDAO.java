@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
-public class registros {
+public class RegistroDAO {
   
-  public static int registroPaciente(String cpf, String rg, String nome) throws SQLException {
+  public static void inserir(String cpf, String rg, String nome) throws SQLException {
     Connection con = database.getConnection();
     PreparedStatement stmt = null;
     ResultSet rs = null;
@@ -29,13 +29,10 @@ public class registros {
         stmt.setString(2, rg);
         stmt.setString(3, nome);
         rs = stmt.executeQuery();
-        return 1;
       }else {
         JOptionPane.showMessageDialog(null, "Você não tem premissão");
-        return 0;
       }
     }
-    return 0;
 
 }
 public static void registroPermission(int numero) throws SQLException {

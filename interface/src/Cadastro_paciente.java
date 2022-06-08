@@ -1,8 +1,15 @@
 
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
+import trabalho.PacienteModel;
+import trabalho.RegistroDAO;
 
 
 public class Cadastro_paciente extends javax.swing.JFrame {
+
+	private RegistroDAO registro = new RegistroDAO();
 
     /**
      * Creates new form cadastro_paciente
@@ -45,6 +52,7 @@ public class Cadastro_paciente extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("*Nome:");
+        
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("*Idade:");
@@ -83,7 +91,11 @@ public class Cadastro_paciente extends javax.swing.JFrame {
         btnCadastrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                try {
+					btnCadastrarActionPerformed(evt) ;
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
             }
         });
 
@@ -201,19 +213,19 @@ public class Cadastro_paciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCEPActionPerformed
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-      Paciente paciente = new Paciente();
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnCadastrarActionPerformed
+        PacienteModel paciente = new PacienteModel();
 
         paciente.setNome(txtNome.getText());
         paciente.setIdade(txtIdade.getText());
         paciente.setRg(txtRG.getText());
         paciente.setCpf(txtCPF.getText());
         paciente.setEndereco(txtEndereco.getText());
-        paciente.setNumero(txtNumero.getText());
+        paciente.setNumeroEndereco(txtNumero.getText());
         paciente.setCep(txtCEP.getText());
         paciente.setSexo((String)txtSexo.getSelectedItem());
 
-        JOptionPane.showMessageDialog(null, paciente.salvar());
+        registro.inserir(paciente);
 
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
