@@ -1,4 +1,6 @@
+package view;
 
+import trabalho.PacienteModel;
 
 /**
  *
@@ -140,7 +142,7 @@ public class Historico_paciente extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        Paciente paciente = new Paciente();
+        PacienteModel paciente = new PacienteModel();
         
         paciente.setNome(txtNome.getText());
         paciente.setCpf(txtCpf.getText());

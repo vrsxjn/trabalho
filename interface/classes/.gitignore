@@ -2,13 +2,9 @@
 /.project
 /Cadastro_paciente.form
 /Consulta.form
-/Historico_paciente$1.class
-/Historico_paciente$2.class
-/Historico_paciente$3.class
-/Historico_paciente.class
+/Consultar_lista_exames.form
 /Historico_paciente.form
 /LoginView.form
-/Paciente.class
 /README.md
 /TelaCadastroFuncionario.form
 /TelaOpcoesAdministrador.form
@@ -24,4 +20,5 @@
 /mysql-connector-java-8.0.29.jar
 /src/
 /trabalho/
+/view/
 /views/

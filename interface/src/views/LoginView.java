@@ -211,7 +211,7 @@ public class LoginView extends javax.swing.JFrame {
 				
 				if (premissao == 0) {
 					// usuario normal
-					Consulta telaConsulta = new Consulta();
+					Consultar_lista_exames telaConsulta = new Consultar_lista_exames();
 					telaConsulta.setVisible(true);
 					dispose();
 

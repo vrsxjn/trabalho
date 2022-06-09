@@ -13,6 +13,7 @@ public class PacienteModel {
     private String numeroEndereco;
     private String cep;
     private String sexo;
+    private String tipoExame;
     
     
 	public String getNome() {
@@ -62,6 +63,13 @@ public class PacienteModel {
 	}
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+	public void setTipoExame(String text) {
+		// TODO Auto-generated method stub
+		
+	}
+	public String getTipoExame() {
+		return tipoExame;
 	}
     
  
