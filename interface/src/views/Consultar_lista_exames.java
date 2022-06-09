@@ -1,5 +1,18 @@
 package views;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+
+import javax.swing.table.DefaultTableModel;
+
+import connection.database;
 import trabalho.PacienteModel;
 
 /* * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -51,7 +64,12 @@ public class Consultar_lista_exames extends javax.swing.JFrame {
         btnConsultar.setText("Consultar");
         btnConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConsultarActionPerformed(evt);
+                try {
+					btnConsultarActionPerformed(evt);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -60,21 +78,7 @@ public class Consultar_lista_exames extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+               
             },
             new String [] {
                 "Tipo", "Nome", "Data"
@@ -132,9 +136,38 @@ public class Consultar_lista_exames extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnConsultarActionPerformed
         PacienteModel paciente = new PacienteModel(); 
-        paciente.setCpf(txtCPF.getText());
+        String cpfReturn = jTextField1.getText();
+        System.out.println(txtCPF.getText());
+		Connection con = database.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		stmt = con.prepareStatement("Select * from usuario_Exames where cpf = ?");
+		stmt.setString(1, cpfReturn);
+		rs = stmt.executeQuery();
+
+		if (rs.next()) {
+			JSONObject obj = new JSONObject();
+			JSONArray objects = new JSONArray();
+			ResultSetMetaData rsmd = rs.getMetaData();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                      
+	        while(rs.next()) {
+	                    
+	                  model.addRow((new Object[]{rs.getString("nome"), rs.getString("exame"), rs.getString("datas")}));
+	                }
+
+			/* String nome = rs.getString("nome");
+		     String exame = rs.getString("exame");
+		     String datas = rs.getString("exame");
+		     System.out.print(nome);*/
+			//DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+			//model.addRow((new Object[]{nome, exame, datas}));
+		}
+        
+        
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     /**

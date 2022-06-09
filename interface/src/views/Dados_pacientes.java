@@ -1,8 +1,12 @@
 package views;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import connection.database;
 import trabalho.PacienteModel;
 import trabalho.RegistroDAO;
 
@@ -244,6 +248,39 @@ public class Dados_pacientes extends javax.swing.JFrame {
 
         RegistroDAO registro = new RegistroDAO();
         registro.inserir(paciente);
+        
+		Connection con = database.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		stmt = con.prepareStatement("Select * from usuario_Pacientes where cpf = ?");
+		stmt.setString(1, jTextField1.getText());
+		rs = stmt.executeQuery();
+		if (rs.next()) {
+	        String nome = rs.getString("nome");
+	        if(nome == null) {
+	            JOptionPane.showMessageDialog(null, "Usuario invalido!");
+	        }else {
+	        	String rg = rs.getString("rg");
+	  	        String endereco = rs.getString("endereco");
+	  	        String idade = rs.getString("idade");
+	  	        String cep = rs.getString("cep");
+	  	        String numero = rs.getString("numero");
+	  	        String sexo = rs.getString("sexo");
+	  	        txtNome.setText(nome);
+	  	        txtRG.setText(rg);
+	  	        txtEndereco.setText(endereco);
+	  	        txtIdade.setText(idade);
+	  	        txtSexo.setText(sexo);
+	  	        txtNumero.setText(numero);
+	  	        txtCEP.setText(cep);
+	        }
+	  
+
+
+			
+		}
+        
 
     }//GEN-LAST:event_btnConsultarActionPerformed
 

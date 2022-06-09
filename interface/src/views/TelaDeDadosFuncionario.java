@@ -1,5 +1,14 @@
 package views;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import connection.database;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -88,7 +97,12 @@ public class TelaDeDadosFuncionario extends javax.swing.JFrame {
         jButton1.setText("Consultar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+					jButton1ActionPerformed(evt);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -194,8 +208,54 @@ public class TelaDeDadosFuncionario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_jButton1ActionPerformed
+    	Connection con = database.getConnection();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		stmt = con.prepareStatement("Select * from usuario_Pacientes where cpf = ?");
+		stmt.setString(1, jTextField1.getText());
+		rs = stmt.executeQuery();
+		if (rs.next()) {
+	        String nome = rs.getString("nome");
+	        if(nome == null) {
+	            JOptionPane.showMessageDialog(null, "Usuario invalido!");
+	        }else {
+	        	String cpf = rs.getString("rg");
+	  	        int permission = rs.getInt("premission");
+	  	        String funcao = "";
+	  	        switch(permission) {
+	  	        case 0:
+	  	        	funcao = "Pessoa Normal";
+	  	        	break;
+	  	        case 1:
+	  	        	funcao = "Medico"; 
+	  	        	break;
+	  	        case 2:
+	  	        	funcao = "Atendente";
+	  	        	break;
+	  	        case 3:
+	  	        	funcao = "Administrador";
+	  	        	break;
+	  	        default:
+	  	        
+	  	        	
+	  	        jTextField2.setText(nome);
+	  	        jTextField3.setText(cpf);
+	  	        jTextField4.setText(funcao);
+
+	  	        	
+	  	        }
+	
+	  	        
+	        }
+	  
+
+
+			
+		}
+
+    	
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed

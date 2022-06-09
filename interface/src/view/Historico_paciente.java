@@ -1,5 +1,12 @@
 package view;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import connection.database;
 import trabalho.PacienteModel;
 
 /**
@@ -56,7 +63,12 @@ public class Historico_paciente extends javax.swing.JFrame {
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                try {
+					btnCadastrarActionPerformed(evt);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
 
@@ -141,13 +153,31 @@ public class Historico_paciente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_btnCadastrarActionPerformed
         PacienteModel paciente = new PacienteModel();
         
         paciente.setNome(txtNome.getText());
         paciente.setCpf(txtCpf.getText());
     //    paciente.setData(txtData.getData());  TRATAR ERRO #1
         paciente.setTipoExame(txtExame.getText());
+       
+        Connection con = database.getConnection();
+		PreparedStatement stmt = null;
+
+		String nome = jTextField1.getText();
+		String cpf = jTextField2.getText();
+		String exame = jTextField4.getText();
+		String data = jTextField3.getText();
+		
+		
+        stmt = con.prepareStatement("INSERT INTO usuario_Exames(cpf, nome, exame, datas) VALUES (?,?,?,?)");
+        stmt.setString(1, cpf);
+        stmt.setString(2, nome);
+        stmt.setString(3, exame);
+        stmt.setString(4, data);
+        stmt.executeUpdate();
+
+        
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     /**
